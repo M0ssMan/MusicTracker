@@ -4,6 +4,7 @@ import os
 import datetime
 
 home = expanduser("~");
+appPath = "%s/Music/GMusic/MusicTracker" % (home)
 text = {
     "red": "\033[91m",
     "yellow": "\033[93m",
@@ -52,7 +53,7 @@ def generateSongMap(filePath):
     return songs
 
 currentCsvPath = "%s/Downloads/gmusic_lib_snapshot.csv" % (home)
-prevCsvPath = "%s/Music/Gmusic/snapshots/previous_snapshot.csv" % (home)
+prevCsvPath = "%s/snapshots/previous_snapshot.csv" % (appPath)
 currentSongMap = generateSongMap(currentCsvPath)
 prevSongMap = generateSongMap(prevCsvPath)
 currentSongsSet = set(currentSongMap.keys())
@@ -64,13 +65,13 @@ deletedHistory = displayChanges(deletedSongIds, prevSongMap, 'DELETED')
 
 now = datetime.datetime.now().strftime("%m-%d-%Y %I:%M %p")
 fileEntryHeader = "======== Sync on %s ========\n" % (now)
-historyPath = "%s/Music/Gmusic/deletedHistory.txt" % (home)
+historyPath = "%s/deletedHistory.txt" % (appPath)
 historyFile = open(historyPath, 'a+')
 historyFile.write(fileEntryHeader + deletedHistory)
 historyFile.close()
 print('Deleted songs were recorded')
 
-counterPath = "%s/Music/Gmusic/counter.txt" % (home)
+counterPath = "%s/counter.txt" % (appPath)
 counterFile = open(counterPath, 'r+')
 count = int(counterFile.readline())
 updatedCount = count + 1
@@ -78,7 +79,7 @@ counterFile.seek(0)
 counterFile.truncate()
 counterFile.write("%s\n" %(updatedCount))
 counterFile.close()
-nextSnapshotNamePath = "%s/Music/Gmusic/snapshots/snapshot_%s.csv" % (home, updatedCount)
+nextSnapshotNamePath = "%s/snapshots/snapshot_%s.csv" % (appPath, updatedCount)
 print('Most recent snapshot number: %s') % (updatedCount)
 
 os.rename(prevCsvPath, nextSnapshotNamePath)
