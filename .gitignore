@@ -3,5 +3,7 @@
 
 # generated files
 /snapshots
-counter.txt
-deletedHistory.txt
+/queue
+/old_unused
+gmusic_deleted_songs.csv
+last_timestamp.txt

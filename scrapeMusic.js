@@ -30,7 +30,8 @@ function downloadToFile(csv) {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', 'gmusic_lib_snapshot.csv');
+  const timestamp = Date.now();
+  link.setAttribute('download', `gmusic_snapshot_${timestamp}.csv`);
   document.body.appendChild(link);
   link.click();
 }
